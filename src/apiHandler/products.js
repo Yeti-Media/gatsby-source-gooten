@@ -42,7 +42,7 @@ const _getProductVariants = options => async productId => {
   if (url, recipeId, countryCode, currencyCode, productId){
     const apiResults = [
       axois.get(`${url}\productvariants`, {params: apiParams}),
-      axois.get(`${url}\productvariants`, {params: { ...apiParams, all:true }}),
+      axois.get(`${url}\productvariants`, {params: { ...apiParams, all:false }}),
     ].map(request => request.then(parseResponse))
 
     const [{ProductVariants: setupVariants}, {ProductVariants: allVariants}] = await Promise.all(apiResults)
@@ -89,7 +89,7 @@ const getProducts = ({
       // products currently set up the users in Gooten's Product Hub
       axois.get(`${url}\products`, { params: apiParams }),
       // all products avaliable to region
-      axois.get(`${url}\products`, { params: { ...apiParams, all: true } } )
+      axois.get(`${url}\products`, { params: { ...apiParams, all: false } } )
     ].map(request => request.then(parseResponseAndRenameIdField(getNodesByType)))
 
     const [setupProducts, allProducts] = await Promise.all(apiResults)
